@@ -1,5 +1,6 @@
 package com.week4.concert.domain.queue;
 
+import com.week4.concert.infrastructure.queue.QueueEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,5 +10,5 @@ public class QueueAppender {
 
     private final QueueRepository queueRepository;
 
-    public void insert(Long userId,String key) { queueRepository.insert(userId, key); }
+    public void insert(QueueEntity queue) { queueRepository.insert( queue); }
 }

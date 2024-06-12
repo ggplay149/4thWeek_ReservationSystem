@@ -1,5 +1,6 @@
 package com.week4.concert.domain.queue;
 
+import com.week4.concert.infrastructure.queue.QueueEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -38,7 +39,7 @@ public class QueueService {
             throw new RuntimeException("이미 활성화된 유저입니다.");
         }
 
-        queueAppender.insert(userId, "Wait");
+        queueAppender.insert(QueueEntity.builder().userId(userId).build());
     }
 
     public void insertNewActiveUsers() {
@@ -53,7 +54,7 @@ public class QueueService {
 
             for (String user : additionalUsers) {
 
-                queueAppender.insert(Long.parseLong(user), "Active");
+                //queueAppender.insert(Long.parseLong(user), "Active");
 
                 queueRemover.remove(Long.parseLong(user), "Wait");
 

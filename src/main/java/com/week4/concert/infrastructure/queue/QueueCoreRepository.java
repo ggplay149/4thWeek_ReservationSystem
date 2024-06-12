@@ -18,9 +18,10 @@ import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
-public class queueCoreRepository implements QueueRepository {
+public class QueueCoreRepository implements QueueRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
+    private final QueueJpaRepository queueJpaRepository;
 
     @Override
     public Boolean checkUserStatus(Long userId, String key) {
@@ -29,9 +30,10 @@ public class queueCoreRepository implements QueueRepository {
     }
 
     @Override
-    public void insert(Long userId, String key) {
-        Double score = (double) System.currentTimeMillis()/ 1000.0;
-        redisTemplate.opsForZSet().add(key, userId.toString(), score);
+    public void insert(QueueEntity queue) {
+        queueJpaRepository.save(queue);
+//        Double score = (double) System.currentTimeMillis()/ 1000.0;
+//        redisTemplate.opsForZSet().add(key, userId.toString(), score);
     }
 
     @Override
