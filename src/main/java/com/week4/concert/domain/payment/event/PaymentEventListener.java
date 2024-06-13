@@ -29,7 +29,7 @@ public class PaymentEventListener {
 
         userService.usePoint(event.userId(), event.reservedConcert().price());
 
-        kafkaTemplate.send("payment",event.reservationNumber()+"/"+event.userId());
+        //kafkaTemplate.send("payment",event.reservationNumber()+"/"+event.userId());
     }
 }
 

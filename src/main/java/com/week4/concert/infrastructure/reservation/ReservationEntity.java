@@ -26,13 +26,13 @@ public class ReservationEntity {
     @Column(name = "reservationNumber", updatable = false,nullable = false)
     private String reservationNumber;
 
-    @Column(name = "reservation_date", nullable = false)
+    @Column(name = "reservation_date", nullable = true)
     private String reservationDate;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = true)
     private String title;
 
-    @Column(name = "seat_num", nullable = false)
+    @Column(name = "seat_num", nullable = true)
     private Integer seatNum;
 
     @Column(name = "user_id", nullable = false)

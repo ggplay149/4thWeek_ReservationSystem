@@ -31,9 +31,9 @@ public class QueueCoreRepository implements QueueRepository {
 
     @Override
     public void insert(QueueEntity queue) {
-        queueJpaRepository.save(queue);
-//        Double score = (double) System.currentTimeMillis()/ 1000.0;
-//        redisTemplate.opsForZSet().add(key, userId.toString(), score);
+        //queueJpaRepository.save(queue);
+        Double score = (double) System.currentTimeMillis()/ 1000.0;
+
     }
 
     @Override

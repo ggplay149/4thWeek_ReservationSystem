@@ -3,6 +3,7 @@ package com.week4.concert.domain.queue;
 import com.week4.concert.infrastructure.queue.QueueEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class QueueService {
     private final QueueAppender queueAppender;
     private final QueueRemover queueRemover;
     private final QueueReader queueReader;
+    private final RedisTemplate<String, String> redisTemplate;
 
     public String checkUserStatus(Long userId) {
 
@@ -39,7 +41,9 @@ public class QueueService {
             throw new RuntimeException("이미 활성화된 유저입니다.");
         }
 
-        queueAppender.insert(QueueEntity.builder().userId(userId).build());
+        Double score = (double) System.currentTimeMillis()/ 1000.0;
+        redisTemplate.opsForZSet().add("Wait", userId.toString(), score);
+
     }
 
     public void insertNewActiveUsers() {
@@ -54,7 +58,8 @@ public class QueueService {
 
             for (String user : additionalUsers) {
 
-                //queueAppender.insert(Long.parseLong(user), "Active");
+                Double score = (double) System.currentTimeMillis()/ 1000.0;
+                redisTemplate.opsForZSet().add("Active", user, score);
 
                 queueRemover.remove(Long.parseLong(user), "Wait");
 

@@ -28,6 +28,7 @@ public class PaymentUseCase {
     @Transactional
     public String pay(String reservationNumber, Long userId) {
 
+        long startTime = System.nanoTime();
         Long reservedConcertId = reservationService.getReservedConcertId(reservationNumber);
 
         Concert reservedConcert = concertService.getConcertById(reservedConcertId);
@@ -43,7 +44,8 @@ public class PaymentUseCase {
         messageService.send();
 
         reservationService.removeTemporaryReservation(reservationNumber);
-
+        long endTime = System.nanoTime(); long duration = endTime - startTime;
+        System.out.println("Transaction duration: " + duration + " nanoseconds");
         return "정상 결제되었습니다. 예약이 확정되었습니다.";
     }
 

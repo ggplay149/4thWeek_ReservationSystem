@@ -10,5 +10,5 @@ public class QueueAppender {
 
     private final QueueRepository queueRepository;
 
-    public void insert(QueueEntity queue) { queueRepository.insert( queue); }
+    public void insert(QueueEntity queue) {  }
 }
