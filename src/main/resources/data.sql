@@ -11,7 +11,7 @@ INSERT INTO reservation (reservation_number,reservation_date,title,seat_num,user
 
 CREATE TEMPORARY TABLE temp_numbers (num INT);
 INSERT INTO temp_numbers (num)
-SELECT X FROM SYSTEM_RANGE(1, 100);
+SELECT X FROM SYSTEM_RANGE(1, 20000);
 INSERT INTO users (point)
 SELECT 100000 FROM temp_numbers;
 DROP TABLE temp_numbers;
